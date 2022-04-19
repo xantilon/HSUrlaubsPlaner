@@ -1,3 +1,4 @@
+# HSUrlaubsPlaner user stories
 
 ## request full day(s)
 As a employee 
@@ -65,9 +66,13 @@ I can export a list of approved requests for a year (or month) as CSV
 As admin
 I can create a leave request for another employee
 
-## admin edit
+## admin edit leaves
 As admin
 I can see and edit every leave request (requested and approved)
+
+## admin edit users
+As Admin
+I can see an editable list of users. I can edit and add users. (incl. amount of leave days, date of entry)
 
 ## login
 I can login with my active directory credentials

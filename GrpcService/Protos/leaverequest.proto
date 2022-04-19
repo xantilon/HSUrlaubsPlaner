@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "HSUrlaubsPlaner.GrpcService";
+
+package leaverequest;
+
+
+service Leaves {
+  rpc NewRequest (LeaveRequestDto) returns (LeaveRequestDto);
+  rpc HandleRequest (HandleRequestDto) returns (LeaveAllocationDto);
+  rpc GetRequests (google.protobuf.Empty) returns (LeaveRequestsDto);
+  rpc GetAllocations (google.protobuf.Empty) returns (LeaveAllocationsDto);
+}
+
+message LeaveRequestDto {
+  int32 Id = 1;
+  EmployeeDto Requester = 2;
+  google.protobuf.Timestamp StartDate = 3;
+  google.protobuf.Timestamp EndDate = 4;
+  eLeaveType LeaveType = 5;
+  google.protobuf.Timestamp DateRequested = 6;
+  google.protobuf.Timestamp DateActioned = 7;  
+  bool Approved = 8;
+  EmployeeDto Approver = 9;
+  bool Canceled = 10;
+  string Comment = 11;
+}
+
+message LeaveRequestsDto {
+  repeated LeaveRequestDto LeaveRequests = 1;
+}
+
+message LeaveAllocationDto {
+  int32 Id = 1;
+  float NumberOfDays = 2;
+  int32 LeaveRequestId = 3;
+  EmployeeDto Employee = 4;
+  eLeaveType  LeaveType = 5;
+  google.protobuf.Timestamp StartDate = 6;
+  google.protobuf.Timestamp EndDate = 7;
+}
+
+message LeaveAllocationsDto {
+  repeated LeaveAllocationDto LeaveAllocations = 1;
+}
+
+message HandleRequestDto {
+  int32 Id = 1;
+  string ApprovedById = 2;
+  bool Approved = 3;
+  bool Canceled = 4;
+  string Comment = 5;
+}
+
+message EmployeeDto {
+  int32 Id = 1;
+  string Name = 2;
+  string Email = 3;
+  google.protobuf.Timestamp DateOfEntry = 4;
+  int32 MaxLeaveDays = 5;
+}
+
+enum eLeaveType
+{
+    Urlaub = 0;
+    Umzug = 1;
+    Arzt = 2;
+    Sonstige = 3;
+}
